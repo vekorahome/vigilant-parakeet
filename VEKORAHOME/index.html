@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEKORA HOME — Elevated Living | vekorahome.com</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#18181B;--stone:#8C8A86;--sand:#F2EDE6;--linen:#FAF8F4;--gold:#B8965A;--gold2:#D4B483;--border:#E8E3DC;--red:#B91C1C;--green:#2D6A4F;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}body{font-family:'Jost',sans-serif;background:var(--linen);color:var(--ink);overflow-x:hidden;}
+.promo-bar{background:var(--ink);color:var(--gold2);text-align:center;padding:9px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;}.promo-bar b{color:#fff;}
+.navbar{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:999;padding:0 60px;}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px;}
+.logo{font-family:'Playfair Display',serif;font-size:22px;letter-spacing:4px;color:var(--ink);cursor:pointer;border:none;background:none;}.logo span{color:var(--gold);}
+.nav-menu{display:flex;gap:32px;list-style:none;}
+.nav-menu button{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#3A3A3C;cursor:pointer;padding:4px 0;border:none;background:none;font-family:'Jost',sans-serif;border-bottom:2px solid transparent;transition:all .2s;}
+.nav-menu button:hover,.nav-menu button.active{color:var(--gold);border-bottom-color:var(--gold);}
+.nav-right{display:flex;align-items:center;gap:16px;}
+.icon-btn{background:none;border:none;cursor:pointer;font-size:18px;position:relative;padding:4px;}
+.cart-badge{position:absolute;top:-4px;right:-6px;background:var(--gold);color:#fff;font-size:9px;width:16px;height:16px;border-radius:50%;display:none;align-items:center;justify-content:center;font-weight:700;}
+.btn-nav{background:var(--ink);color:#fff;border:none;padding:10px 20px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .2s;}.btn-nav:hover{background:var(--gold);}
+
+/* PAGES */
+.page{display:none;}.page.active{display:block;}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:55% 45%;min-height:86vh;}
+.hero-left{background:var(--sand);padding:90px 80px;display:flex;flex-direction:column;justify-content:center;}
+.hero-tag{display:inline-block;background:#fff;border:1px solid var(--gold2);padding:8px 16px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:28px;}
+.hero-h1{font-family:'Playfair Display',serif;font-size:60px;font-weight:400;line-height:1.1;margin-bottom:20px;}.hero-h1 em{font-style:italic;color:var(--gold);}
+.hero-p{font-size:15px;line-height:1.8;color:var(--stone);max-width:400px;margin-bottom:40px;}
+.hero-btns{display:flex;gap:14px;}
+.btn-primary{background:var(--ink);color:#fff;padding:14px 32px;border:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;transition:background .2s;}.btn-primary:hover{background:var(--gold);}
+.btn-outline{background:transparent;color:var(--ink);padding:14px 32px;border:1.5px solid var(--ink);cursor:pointer;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;transition:all .2s;}.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+.hero-stats{display:flex;gap:36px;margin-top:52px;padding-top:36px;border-top:1px solid var(--border);}
+.stat-n{font-family:'Playfair Display',serif;font-size:30px;display:block;}.stat-l{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);}
+
+/* HERO CATEGORY GRID */
+.hero-right{background:var(--ink);display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px;}
+.cat-cell{position:relative;overflow:hidden;cursor:pointer;min-height:200px;display:flex;align-items:center;justify-content:center;transition:transform .3s;}
+.cat-cell:hover{transform:scale(1.02);z-index:2;}
+.cat-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3;transition:opacity .3s;}
+.cat-cell:hover .cat-bg{opacity:.5;}
+.cat-overlay{position:absolute;inset:0;background:linear-gradient(145deg,rgba(44,42,38,.7),rgba(30,28,25,.8));}
+.cat-content{position:relative;z-index:2;text-align:center;padding:20px;}
+.cat-label{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold2);letter-spacing:2px;display:block;margin-bottom:6px;}
+.cat-count{font-size:10px;color:var(--stone);letter-spacing:2px;text-transform:uppercase;}
+
+/* MARQUEE */
+.marquee{background:var(--gold);padding:13px 0;overflow:hidden;white-space:nowrap;}
+.m-track{display:inline-flex;gap:50px;animation:scroll 22s linear infinite;}
+.m-item{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--ink);font-weight:600;}
+.m-item::before{content:'✦ ';font-size:8px;}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* SECTIONS */
+.sec{padding:80px 60px;}.sec-tag{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:10px;}
+.sec-h2{font-family:'Playfair Display',serif;font-size:40px;font-weight:400;margin-bottom:8px;}.sec-h2 em{font-style:italic;}
+.sec-sub{font-size:14px;color:var(--stone);max-width:480px;line-height:1.7;margin-bottom:40px;}
+
+/* FILTER */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;}
+.f-btn{padding:9px 20px;border:1px solid var(--border);background:#fff;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.f-btn:hover,.f-btn.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+/* PRODUCT GRID */
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;}
+.pcard{background:#fff;overflow:hidden;position:relative;transition:transform .3s;cursor:pointer;}
+.pcard:hover{transform:translateY(-4px);z-index:2;}
+
+/* PRODUCT IMAGE */
+.pimg{aspect-ratio:1;position:relative;overflow:hidden;background:var(--sand);}
+.pimg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s;}
+.pcard:hover .pimg img{transform:scale(1.06);}
+.pbadge{position:absolute;top:12px;left:12px;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:5px 10px;font-weight:700;z-index:3;}
+.b-new{background:var(--ink);color:#fff;}.b-sale{background:var(--red);color:#fff;}.b-hot{background:var(--gold);color:var(--ink);}
+.pwish{position:absolute;top:12px;right:12px;background:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;opacity:0;transition:opacity .2s;border:none;box-shadow:0 2px 8px rgba(0,0,0,.15);z-index:3;}
+.pcard:hover .pwish{opacity:1;}
+.pactions{position:absolute;bottom:0;left:0;right:0;background:var(--ink);padding:10px;display:flex;gap:6px;transform:translateY(100%);transition:transform .25s;z-index:3;}
+.pcard:hover .pactions{transform:translateY(0);}
+.pa-btn{flex:1;padding:8px 4px;background:transparent;border:1px solid rgba(255,255,255,.2);color:#fff;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:background .2s;}
+.pa-btn:hover{background:rgba(255,255,255,.15);}
+.pa-btn.main{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:600;}.pa-btn.main:hover{background:#fff;}
+.pinfo{padding:16px 16px 20px;}
+.p-cat{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.p-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:400;line-height:1.3;margin-bottom:10px;}
+.p-bot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px;}
+.p-price{font-size:15px;font-weight:600;}.p-orig{font-size:12px;color:var(--stone);text-decoration:line-through;margin-right:4px;font-weight:400;}
+.p-stars{font-size:11px;color:var(--gold);}.p-rev{font-size:10px;color:var(--stone);}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);z-index:3000;display:none;align-items:center;justify-content:center;padding:20px;}
+.overlay.on{display:flex;}
+.modal{background:#fff;width:880px;max-width:100%;max-height:90vh;overflow-y:auto;display:grid;grid-template-columns:1fr 1fr;position:relative;}
+.m-img{aspect-ratio:1;overflow:hidden;background:var(--sand);position:sticky;top:0;}
+.m-img img{width:100%;height:100%;object-fit:cover;}
+.m-body{padding:44px 36px;}
+.m-cat{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.m-name{font-family:'Playfair Display',serif;font-size:28px;font-weight:400;line-height:1.2;margin-bottom:14px;}
+.m-stars{color:var(--gold);font-size:13px;margin-bottom:18px;}
+.m-price{font-size:26px;font-weight:700;margin-bottom:20px;}.m-orig{font-size:15px;color:var(--stone);text-decoration:line-through;margin-right:8px;font-weight:400;}
+.m-desc{font-size:14px;line-height:1.8;color:var(--stone);margin-bottom:24px;}
+.m-feats{list-style:none;margin-bottom:28px;}.m-feats li{font-size:13px;padding:7px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;}.m-feats li::before{content:'✓';color:var(--green);font-weight:700;}
+.qty-row{display:flex;align-items:center;gap:16px;margin-bottom:20px;}
+.qty-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);}
+.qty-ctrl{display:flex;align-items:center;border:1px solid var(--border);}
+.qty-ctrl button{width:36px;height:36px;background:none;border:none;cursor:pointer;font-size:16px;}.qty-ctrl button:hover{background:var(--sand);}
+.qty-ctrl span{font-size:14px;font-weight:600;min-width:38px;text-align:center;}
+.btn-add{width:100%;padding:15px;background:var(--ink);color:#fff;border:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:12px;transition:background .2s;}.btn-add:hover{background:var(--gold);}
+.m-trust{display:flex;gap:16px;padding-top:16px;border-top:1px solid var(--border);}
+.m-trust div{font-size:11px;color:var(--stone);text-align:center;flex:1;}
+.m-trust span{display:block;font-size:17px;margin-bottom:3px;}
+.m-close{position:absolute;top:14px;right:14px;background:#fff;border:1px solid var(--border);width:34px;height:34px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;}
+
+/* CART SIDEBAR */
+.cart-shade{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2000;display:none;}
+.cart-shade.on{display:block;}
+.cart-side{position:fixed;top:0;right:-420px;width:420px;height:100%;background:#fff;z-index:2001;transition:right .35s;display:flex;flex-direction:column;box-shadow:-8px 0 40px rgba(0,0,0,.12);}
+.cart-side.on{right:0;}
+.c-head{display:flex;justify-content:space-between;align-items:center;padding:22px 26px;border-bottom:1px solid var(--border);}
+.c-head h3{font-family:'Playfair Display',serif;font-size:20px;}
+.c-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--stone);}
+.c-items{flex:1;overflow-y:auto;padding:18px 26px;}
+.c-empty{text-align:center;padding:50px 16px;color:var(--stone);font-size:14px;}
+.c-item{display:grid;grid-template-columns:65px 1fr auto;gap:12px;padding:14px 0;border-bottom:1px solid var(--border);align-items:center;}
+.c-thumb{width:65px;height:65px;overflow:hidden;background:var(--sand);}.c-thumb img{width:100%;height:100%;object-fit:cover;}
+.c-name{font-size:13px;font-weight:500;margin-bottom:5px;}.c-pr{font-size:13px;color:var(--gold);font-weight:600;}
+.c-qty{display:flex;align-items:center;gap:8px;margin-top:6px;}
+.q-btn{width:22px;height:22px;border:1px solid var(--border);background:none;cursor:pointer;font-size:13px;}.q-n{font-size:12px;font-weight:600;min-width:18px;text-align:center;}
+.c-rm{background:none;border:none;cursor:pointer;color:var(--stone);font-size:15px;}
+.c-foot{padding:18px 26px;border-top:1px solid var(--border);}
+.c-sub{display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:8px;}
+.c-ship{font-size:11px;color:var(--stone);text-align:center;margin-bottom:14px;letter-spacing:1px;text-transform:uppercase;}
+.btn-co{width:100%;background:var(--ink);color:#fff;border:none;padding:15px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;}.btn-co:hover{background:var(--gold);}
+.btn-cs{width:100%;background:none;color:var(--ink);border:1px solid var(--border);padding:11px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;margin-top:8px;}
+
+/* BANNER */
+.banner{margin:0 60px 80px;background:var(--ink);display:grid;grid-template-columns:1fr 1fr;}
+.ban-l{padding:72px 60px;}.ban-tag{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:16px;}
+.ban-h2{font-family:'Playfair Display',serif;font-size:42px;font-weight:400;color:#fff;line-height:1.15;margin-bottom:16px;}.ban-h2 em{font-style:italic;color:var(--gold);}
+.ban-p{font-size:14px;color:rgba(255,255,255,.45);line-height:1.8;margin-bottom:30px;max-width:360px;}
+.ban-r{padding:72px 52px;display:flex;flex-direction:column;gap:22px;justify-content:center;}
+.b-feat{display:flex;gap:16px;align-items:flex-start;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.07);}.b-feat:last-child{border-bottom:none;padding-bottom:0;}
+.b-icon{width:42px;height:42px;flex-shrink:0;border:1px solid rgba(184,150,90,.35);display:flex;align-items:center;justify-content:center;font-size:17px;}
+.b-title{font-size:14px;font-weight:500;color:#fff;margin-bottom:4px;}.b-desc{font-size:12px;color:rgba(255,255,255,.35);line-height:1.6;}
+
+/* TESTIMONIALS */
+.testi-bg{background:var(--sand);}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:40px;}
+.tcard{background:#fff;padding:32px;}.t-stars{color:var(--gold);margin-bottom:14px;font-size:13px;}
+.t-quote{font-family:'Playfair Display',serif;font-size:16px;font-style:italic;line-height:1.7;margin-bottom:18px;}
+.t-auth{display:flex;align-items:center;gap:10px;}.t-av{width:36px;height:36px;border-radius:50%;background:var(--sand);display:flex;align-items:center;justify-content:center;font-size:15px;}
+.t-name{font-size:12px;font-weight:600;}.t-loc{font-size:10px;color:var(--stone);}
+
+/* TRUST */
+.trust{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.tr-item{padding:32px 26px;border-right:1px solid var(--border);display:flex;gap:14px;align-items:center;}.tr-item:last-child{border-right:none;}
+.tr-icon{font-size:26px;flex-shrink:0;}.tr-title{font-size:13px;font-weight:600;margin-bottom:3px;}.tr-sub{font-size:11px;color:var(--stone);line-height:1.5;}
+
+/* NEWSLETTER */
+.nl{padding:72px 60px;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;background:#fff;}
+.nl-h2{font-family:'Playfair Display',serif;font-size:38px;font-weight:400;line-height:1.2;}.nl-h2 em{font-style:italic;color:var(--gold);}
+.nl-p{font-size:14px;color:var(--stone);margin-top:12px;line-height:1.7;}
+.nl-form{display:flex;}.nl-in{flex:1;padding:14px 16px;border:1px solid var(--border);border-right:none;background:var(--linen);font-family:'Jost',sans-serif;font-size:13px;outline:none;}
+.nl-btn{background:var(--ink);color:#fff;border:none;padding:14px 24px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;}
+.nl-note{font-size:11px;color:var(--stone);margin-top:8px;}
+
+/* ABOUT */
+.ab-hero{background:var(--sand);padding:90px 60px;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+.ab-img{aspect-ratio:1;overflow:hidden;background:var(--ink);}.ab-img img{width:100%;height:100%;object-fit:cover;}
+.ab-tag{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:14px;}
+.ab-h2{font-family:'Playfair Display',serif;font-size:44px;font-weight:400;line-height:1.15;margin-bottom:20px;}.ab-h2 em{font-style:italic;color:var(--gold);}
+.ab-p{font-size:15px;line-height:1.85;color:var(--stone);margin-bottom:14px;}
+.vals{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:0 60px 80px;}
+.val{background:var(--sand);padding:36px 28px;}.val-ic{font-size:32px;margin-bottom:16px;display:block;}
+.val-h{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;margin-bottom:8px;}
+.val-p{font-size:13px;color:var(--stone);line-height:1.7;}
+
+/* CONTACT */
+.ct-wrap{display:grid;grid-template-columns:1fr 1fr;min-height:70vh;}
+.ct-l{background:var(--ink);padding:72px 52px;display:flex;flex-direction:column;justify-content:center;}
+.ct-tag{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:14px;}
+.ct-h2{font-family:'Playfair Display',serif;font-size:38px;font-weight:400;color:#fff;line-height:1.2;margin-bottom:18px;}
+.ct-p{font-size:14px;color:rgba(255,255,255,.4);line-height:1.8;margin-bottom:36px;}
+.ct-det{display:flex;gap:14px;margin-bottom:22px;}.ct-icon{font-size:18px;}.ct-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}.ct-val{font-size:14px;color:rgba(255,255,255,.6);}
+.ct-r{padding:72px 52px;background:#fff;}.ct-r h3{font-family:'Playfair Display',serif;font-size:30px;font-weight:400;margin-bottom:28px;}
+.cf-grp{margin-bottom:18px;}.cf-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);display:block;margin-bottom:6px;}
+.cf-grp input,.cf-grp textarea{width:100%;padding:12px 14px;border:1px solid var(--border);background:var(--linen);font-family:'Jost',sans-serif;font-size:13px;outline:none;}
+.cf-grp textarea{min-height:100px;resize:vertical;}
+
+/* POLICIES */
+.pol{max-width:800px;margin:0 auto;padding:72px 36px;}
+.pol h1{font-family:'Playfair Display',serif;font-size:44px;font-weight:400;margin-bottom:8px;}
+.pol-date{font-size:11px;letter-spacing:2px;color:var(--stone);text-transform:uppercase;margin-bottom:40px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.pol h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;margin:34px 0 12px;}
+.pol p,.pol li{font-size:14px;line-height:1.9;color:var(--stone);margin-bottom:12px;}.pol ul{padding-left:18px;margin-bottom:12px;}.pol strong{color:var(--ink);}
+.pol hr{border:none;border-top:1px solid var(--border);margin:52px 0;}
+
+/* CHECKOUT */
+.ck{padding:52px 60px;}.ck-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:52px;max-width:1080px;margin:0 auto;}
+.ck h2{font-family:'Playfair Display',serif;font-size:34px;font-weight:400;margin-bottom:32px;}
+.fs{margin-bottom:28px;}.fs h4{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--stone);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;}
+.fg label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);}
+.fg input{padding:11px 13px;border:1px solid var(--border);background:#fff;font-family:'Jost',sans-serif;font-size:13px;outline:none;}
+.os{background:var(--sand);padding:32px;position:sticky;top:90px;}
+.os h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;margin-bottom:22px;}
+.oi{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);align-items:center;}
+.oi-img{width:52px;height:52px;background:#fff;overflow:hidden;flex-shrink:0;}.oi-img img{width:100%;height:100%;object-fit:cover;}
+.oi-name{font-size:13px;font-weight:500;margin-bottom:2px;}.oi-qty{font-size:11px;color:var(--stone);}.oi-pr{margin-left:auto;font-size:13px;font-weight:600;}
+.ot{border-top:1px solid var(--border);padding-top:18px;}.ot-row{display:flex;justify-content:space-between;font-size:13px;color:var(--stone);margin-bottom:8px;}
+.ot-total{display:flex;justify-content:space-between;font-size:16px;font-weight:700;padding-top:12px;border-top:2px solid var(--ink);margin-top:6px;}
+.btn-order{width:100%;padding:15px;background:var(--ink);color:#fff;border:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;margin-top:18px;}.btn-order:hover{background:var(--gold);}
+
+/* POPUP */
+.pop-shade{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:4000;display:none;align-items:center;justify-content:center;}
+.pop-shade.on{display:flex;}
+.pop{background:#fff;width:540px;max-width:95%;display:grid;grid-template-columns:1fr 1fr;position:relative;}
+.pop-l{background:linear-gradient(145deg,#2C2A26,#1E1C19);padding:48px 32px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.pop-big{font-family:'Playfair Display',serif;font-size:52px;color:var(--gold);line-height:1;}
+.pop-lbl{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold2);margin-top:6px;}
+.pop-r{padding:44px 32px;display:flex;flex-direction:column;justify-content:center;}
+.pop-tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.pop-h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;line-height:1.25;margin-bottom:10px;}
+.pop-p{font-size:13px;color:var(--stone);line-height:1.7;margin-bottom:20px;}
+.pop-in{width:100%;padding:11px 13px;border:1px solid var(--border);background:var(--linen);font-family:'Jost',sans-serif;font-size:13px;outline:none;margin-bottom:10px;}
+.pop-btn{width:100%;padding:12px;background:var(--ink);color:#fff;border:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;}
+.pop-skip{font-size:11px;color:var(--stone);text-align:center;cursor:pointer;margin-top:10px;text-decoration:underline;}
+.pop-x{position:absolute;top:10px;right:10px;background:none;border:none;font-size:18px;cursor:pointer;color:var(--stone);}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--ink);color:#fff;padding:13px 24px;font-size:11px;letter-spacing:2px;text-transform:uppercase;z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* FOOTER */
+footer{background:var(--ink);padding:72px 60px 32px;}
+.fg-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:52px;padding-bottom:52px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:32px;}
+.f-logo{font-family:'Playfair Display',serif;font-size:20px;letter-spacing:4px;color:#fff;display:block;cursor:pointer;margin-bottom:14px;border:none;background:none;font-weight:500;}.f-logo span{color:var(--gold);}
+.f-about{font-size:13px;color:rgba(255,255,255,.38);line-height:1.8;max-width:260px;margin-bottom:20px;}
+.f-soc{display:flex;gap:8px;}.f-s{width:32px;height:32px;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.45);font-size:12px;cursor:pointer;transition:all .2s;}.f-s:hover{border-color:var(--gold);color:var(--gold);}
+.f-col h4{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.f-links button{font-size:13px;color:rgba(255,255,255,.4);cursor:pointer;font-family:'Jost',sans-serif;background:none;border:none;text-align:left;transition:color .2s;}.f-links button:hover{color:#fff;}
+.f-bot{display:flex;justify-content:space-between;align-items:center;}
+.f-copy{font-size:11px;color:rgba(255,255,255,.22);}
+.f-leg{display:flex;gap:20px;}.f-leg button{font-size:11px;color:rgba(255,255,255,.22);background:none;border:none;cursor:pointer;font-family:'Jost',sans-serif;}.f-leg button:hover{color:#fff;}
+
+@media(max-width:900px){
+  .navbar{padding:0 18px;}.nav-menu{display:none;}
+  .hero{grid-template-columns:1fr;}.hero-right{display:none;}.hero-left{padding:52px 20px;}.hero-h1{font-size:40px;}
+  .pgrid{grid-template-columns:repeat(2,1fr);}.sec{padding:52px 20px;}
+  .banner{margin:0 20px 60px;grid-template-columns:1fr;}.ban-l{padding:48px 28px;}.ban-r{padding:0 28px 48px;}
+  .trust{grid-template-columns:1fr 1fr;}.tgrid{grid-template-columns:1fr;}.nl{grid-template-columns:1fr;padding:52px 20px;}
+  .fg-grid{grid-template-columns:1fr 1fr;gap:28px;padding:0 0 36px;}.f-bot{flex-direction:column;gap:12px;}
+  .ab-hero{grid-template-columns:1fr;padding:52px 20px;}.ab-img{display:none;}.vals{grid-template-columns:1fr;padding:0 20px 60px;}
+  .ct-wrap{grid-template-columns:1fr;}.ct-l{padding:40px 20px;}.ct-r{padding:40px 20px;}
+  .ck{padding:28px 18px;}.ck-grid{grid-template-columns:1fr;}
+  .modal{grid-template-columns:1fr;}.m-img{aspect-ratio:16/9;}
+  .pop{grid-template-columns:1fr;}.pop-l{padding:28px;}
+}
+</style>
+</head>
+<body>
+
+<!-- POPUP -->
+<div class="pop-shade" id="popShade">
+  <div class="pop">
+    <button class="pop-x" onclick="closePop()">✕</button>
+    <div class="pop-l">
+      <div style="font-size:48px;margin-bottom:14px;">🎁</div>
+      <div class="pop-big">10%</div>
+      <div class="pop-lbl">Off Your First Order</div>
+    </div>
+    <div class="pop-r">
+      <span class="pop-tag">Welcome to Vekora Home</span>
+      <h3 class="pop-h3">Unlock Your Welcome Discount</h3>
+      <p class="pop-p">Join our community and get 10% off your first purchase, plus early access to new arrivals.</p>
+      <input type="email" class="pop-in" placeholder="Enter your email address">
+      <button class="pop-btn" onclick="closePop()">Claim My 10% Off</button>
+      <p class="pop-skip" onclick="closePop()">No thanks, I'll pay full price</p>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- CART SHADE + SIDEBAR -->
+<div class="cart-shade" id="cShade" onclick="toggleCart()"></div>
+<div class="cart-side" id="cSide">
+  <div class="c-head"><h3>Your Cart</h3><button class="c-close" onclick="toggleCart()">✕</button></div>
+  <div class="c-items" id="cItems"><div class="c-empty">Your cart is empty 🛒</div></div>
+  <div class="c-foot" id="cFoot" style="display:none;">
+    <div class="c-sub"><span>Subtotal</span><span id="cTotal">$0.00</span></div>
+    <div class="c-ship">✦ Free shipping on orders over $75 ✦</div>
+    <button class="btn-co" onclick="goCheckout()">Proceed to Checkout</button>
+    <button class="btn-cs" onclick="toggleCart()">Continue Shopping</button>
+  </div>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div class="overlay" id="modalOv" onclick="if(event.target===this)closeMod()">
+  <div class="modal">
+    <button class="m-close" onclick="closeMod()">✕</button>
+    <div class="m-img"><img id="mImg" src="" alt=""></div>
+    <div class="m-body">
+      <p class="m-cat" id="mCat"></p>
+      <h2 class="m-name" id="mName"></h2>
+      <div class="m-stars">★★★★★ <span style="color:var(--stone);font-size:12px;">(142 reviews)</span></div>
+      <div class="m-price" id="mPrice"></div>
+      <p class="m-desc" id="mDesc"></p>
+      <ul class="m-feats">
+        <li>Premium quality — built to last</li>
+        <li>Ships from US warehouse — 3 to 5 business days</li>
+        <li>30-day hassle-free returns</li>
+        <li>Satisfaction guaranteed</li>
+      </ul>
+      <div class="qty-row">
+        <span class="qty-lbl">Quantity</span>
+        <div class="qty-ctrl">
+          <button onclick="chMQty(-1)">−</button>
+          <span id="mQty">1</span>
+          <button onclick="chMQty(1)">+</button>
+        </div>
+      </div>
+      <button class="btn-add" onclick="addFromMod()">Add to Cart</button>
+      <div class="m-trust">
+        <div><span>🚚</span>Free Shipping $75+</div>
+        <div><span>↩️</span>30-Day Returns</div>
+        <div><span>🔒</span>Secure Payment</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROMO BAR -->
+<div class="promo-bar">Free US Shipping Over <b>$75</b> &nbsp;·&nbsp; Code <b>WELCOME10</b> for 10% Off &nbsp;·&nbsp; 30-Day Returns</div>
+
+<!-- NAV -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <button class="logo" onclick="go('home')">VEKORA <span>HOME</span></button>
+    <ul class="nav-menu">
+      <li><button onclick="go('home')" id="nh" class="active">Home</button></li>
+      <li><button onclick="go('shop')" id="ns">Shop</button></li>
+      <li><button onclick="go('about')" id="na">About</button></li>
+      <li><button onclick="go('contact')" id="nc">Contact</button></li>
+      <li><button onclick="go('policies')" id="np">Policies</button></li>
+    </ul>
+    <div class="nav-right">
+      <button class="icon-btn" onclick="go('shop')">🔍</button>
+      <button class="icon-btn" onclick="toggleCart()">🛒<span class="cart-badge" id="cBadge">0</span></button>
+      <button class="btn-nav" onclick="go('shop')">Shop Now</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HOME ===== -->
+<div id="p-home" class="page active">
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-tag">✦ New 2025 Collection</div>
+      <h1 class="hero-h1">Design your<br>perfect <em>home</em><br>sanctuary</h1>
+      <p class="hero-p">Curated premium home objects for people who believe everyday living should feel beautiful. Fast delivery across the US.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="go('shop')">Shop Collection</button>
+        <button class="btn-outline" onclick="go('about')">Our Story</button>
+      </div>
+      <div class="hero-stats">
+        <div><span class="stat-n">4,800+</span><span class="stat-l">Happy Customers</span></div>
+        <div><span class="stat-n">200+</span><span class="stat-l">Curated Products</span></div>
+        <div><span class="stat-n">4.9★</span><span class="stat-l">Average Rating</span></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="cat-cell" onclick="catShop('Living Room')">
+        <img class="cat-bg" src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?w=400&h=400&fit=crop" alt="" onerror="this.style.display='none'">
+        <div class="cat-overlay"></div>
+        <div class="cat-content"><span class="cat-label">Living Room</span><span class="cat-count">42 Items</span></div>
+      </div>
+      <div class="cat-cell" onclick="catShop('Kitchen')">
+        <img class="cat-bg" src="https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg?w=400&h=400&fit=crop" alt="" onerror="this.style.display='none'">
+        <div class="cat-overlay"></div>
+        <div class="cat-content"><span class="cat-label">Kitchen</span><span class="cat-count">38 Items</span></div>
+      </div>
+      <div class="cat-cell" onclick="catShop('Bedroom')">
+        <img class="cat-bg" src="https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?w=400&h=400&fit=crop" alt="" onerror="this.style.display='none'">
+        <div class="cat-overlay"></div>
+        <div class="cat-content"><span class="cat-label">Bedroom</span><span class="cat-count">29 Items</span></div>
+      </div>
+      <div class="cat-cell" onclick="catShop('Décor')">
+        <img class="cat-bg" src="https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?w=400&h=400&fit=crop" alt="" onerror="this.style.display='none'">
+        <div class="cat-overlay"></div>
+        <div class="cat-content"><span class="cat-label">Décor</span><span class="cat-count">55 Items</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee"><div class="m-track">
+    <span class="m-item">Free US Shipping Over $75</span><span class="m-item">30-Day Returns</span><span class="m-item">Premium Home Living</span><span class="m-item">New Arrivals 2025</span><span class="m-item">4.9 Star Reviews</span><span class="m-item">US LLC Registered</span><span class="m-item">Fast 3–5 Day Delivery</span><span class="m-item">Free US Shipping Over $75</span><span class="m-item">30-Day Returns</span><span class="m-item">Premium Home Living</span><span class="m-item">New Arrivals 2025</span><span class="m-item">4.9 Star Reviews</span><span class="m-item">US LLC Registered</span><span class="m-item">Fast 3–5 Day Delivery</span>
+  </div></div>
+
+  <section class="sec">
+    <span class="sec-tag">Best Sellers</span>
+    <h2 class="sec-h2">Customer <em>Favorites</em></h2>
+    <p class="sec-sub">Our most-loved pieces, chosen by thousands of customers across the US.</p>
+    <div class="pgrid" id="homeGrid"></div>
+    <div style="text-align:center;margin-top:44px;"><button class="btn-outline" onclick="go('shop')">View All Products</button></div>
+  </section>
+
+  <div class="banner">
+    <div class="ban-l">
+      <span class="ban-tag">The Vekora Standard</span>
+      <h2 class="ban-h2">Beauty you can<br>feel in every<br><em>detail</em></h2>
+      <p class="ban-p">Every product is hand-selected for material quality and timeless aesthetic. Sourced from the finest artisans in China and Italy.</p>
+      <button class="btn-primary" onclick="go('shop')">Explore All Products</button>
+    </div>
+    <div class="ban-r">
+      <div class="b-feat"><div class="b-icon">✦</div><div><div class="b-title">Strict Curation</div><div class="b-desc">Only 5% of reviewed products make it into our collection.</div></div></div>
+      <div class="b-feat"><div class="b-icon">🇺🇸</div><div><div class="b-title">Ships from the US</div><div class="b-desc">Fast 3–5 day delivery from domestic warehouses.</div></div></div>
+      <div class="b-feat"><div class="b-icon">↩️</div><div><div class="b-title">30-Day Guarantee</div><div class="b-desc">Not happy? Return it — no questions asked.</div></div></div>
+    </div>
+  </div>
+
+  <section class="sec testi-bg">
+    <span class="sec-tag">Customer Love</span>
+    <h2 class="sec-h2">What Our <em>Customers</em> Say</h2>
+    <div class="tgrid">
+      <div class="tcard"><div class="t-stars">★★★★★</div><p class="t-quote">"The ceramic vase I ordered is even more beautiful in person. Exceptional quality — this is my go-to shop for home décor."</p><div class="t-auth"><div class="t-av">👩</div><div><div class="t-name">Sarah M.</div><div class="t-loc">New York, NY</div></div></div></div>
+      <div class="tcard"><div class="t-stars">★★★★★</div><p class="t-quote">"Fast shipping, beautiful packaging, and products that look exactly like the photos. VEKORA HOME is the real deal."</p><div class="t-auth"><div class="t-av">👨</div><div><div class="t-name">James T.</div><div class="t-loc">Austin, TX</div></div></div></div>
+      <div class="tcard"><div class="t-stars">★★★★★</div><p class="t-quote">"I've ordered from several home décor brands and VEKORA HOME is by far the best. The attention to detail is remarkable."</p><div class="t-auth"><div class="t-av">👩‍🦱</div><div><div class="t-name">Priya K.</div><div class="t-loc">San Francisco, CA</div></div></div></div>
+    </div>
+  </section>
+
+  <div class="trust">
+    <div class="tr-item"><span class="tr-icon">🚚</span><div><div class="tr-title">Free US Shipping</div><div class="tr-sub">On all orders over $75</div></div></div>
+    <div class="tr-item"><span class="tr-icon">↩️</span><div><div class="tr-title">30-Day Returns</div><div class="tr-sub">Hassle-free, no questions</div></div></div>
+    <div class="tr-item"><span class="tr-icon">🔒</span><div><div class="tr-title">Secure Payments</div><div class="tr-sub">SSL encrypted checkout</div></div></div>
+    <div class="tr-item"><span class="tr-icon">💬</span><div><div class="tr-title">US Customer Support</div><div class="tr-sub">Mon–Fri, 9am–6pm EST</div></div></div>
+  </div>
+
+  <section class="nl">
+    <div><h2 class="nl-h2">Join the VEKORA<br><em>Home Circle</em></h2><p class="nl-p">Subscribe for early access to new arrivals, exclusive discounts, and interior styling tips.</p></div>
+    <div><div class="nl-form"><input type="email" class="nl-in" placeholder="Your email address"><button class="nl-btn" onclick="toast('Subscribed! Welcome ✦')">Subscribe</button></div><p class="nl-note">By subscribing you agree to our Privacy Policy. Unsubscribe anytime.</p></div>
+  </section>
+</div>
+
+<!-- ===== SHOP ===== -->
+<div id="p-shop" class="page">
+  <section class="sec">
+    <span class="sec-tag">The Full Collection</span>
+    <h2 class="sec-h2">Shop <em>All</em> Products</h2>
+    <div class="filters">
+      <button class="f-btn on" onclick="filterP('All',this)">All</button>
+      <button class="f-btn" onclick="filterP('Living Room',this)">Living Room</button>
+      <button class="f-btn" onclick="filterP('Kitchen',this)">Kitchen</button>
+      <button class="f-btn" onclick="filterP('Bedroom',this)">Bedroom</button>
+      <button class="f-btn" onclick="filterP('Décor',this)">Décor</button>
+      <button class="f-btn" onclick="filterP('Lighting',this)">Lighting</button>
+      <button class="f-btn" onclick="filterP('Bathroom',this)">Bathroom</button>
+    </div>
+    <div class="pgrid" id="shopGrid"></div>
+  </section>
+</div>
+
+<!-- ===== ABOUT ===== -->
+<div id="p-about" class="page">
+  <div class="ab-hero">
+    <div class="ab-img"><img src="https://images.pexels.com/photos/1571468/pexels-photo-1571468.jpeg?w=800&h=800&fit=crop" alt="VEKORA HOME" onerror="this.style.display='none'"></div>
+    <div>
+      <span class="ab-tag">Our Story</span>
+      <h2 class="ab-h2">We believe your home<br>should <em>inspire</em> you</h2>
+      <p class="ab-p">VEKORA HOME was founded with one conviction: beautiful, functional home objects shouldn't cost a fortune — but they should feel like they do. We're a US-registered team of designers and curators.</p>
+      <p class="ab-p">Every product is hand-selected from trusted makers in Italy and China who share our commitment to quality, sustainability, and timeless design. VEKORA HOME LLC is incorporated in Wyoming.</p>
+      <button class="btn-primary" onclick="go('shop')" style="margin-top:18px;">Shop the Collection</button>
+    </div>
+  </div>
+  <div class="vals">
+    <div class="val"><span class="val-ic">✦</span><h3 class="val-h">Intentional Curation</h3><p class="val-p">We review hundreds of products monthly to bring you only those that meet our strict standards for quality and aesthetics.</p></div>
+    <div class="val"><span class="val-ic">🌿</span><h3 class="val-h">Sustainable Approach</h3><p class="val-p">We prioritize natural materials, responsible sourcing, and eco-conscious packaging wherever possible.</p></div>
+    <div class="val"><span class="val-ic">🇺🇸</span><h3 class="val-h">US-Based Operations</h3><p class="val-p">VEKORA HOME LLC is incorporated in Wyoming. All orders ship domestically for fast, reliable delivery.</p></div>
+  </div>
+</div>
+
+<!-- ===== CONTACT ===== -->
+<div id="p-contact" class="page">
+  <div class="ct-wrap">
+    <div class="ct-l">
+      <span class="ct-tag">Get in Touch</span>
+      <h2 class="ct-h2">We'd love to<br>hear from you</h2>
+      <p class="ct-p">Questions about your order? Mon–Fri, 9am–6pm EST.</p>
+      <div class="ct-det"><span class="ct-icon">📧</span><div><div class="ct-lbl">Email</div><div class="ct-val">hello@vekorahome.com</div></div></div>
+      <div class="ct-det"><span class="ct-icon">📞</span><div><div class="ct-lbl">Phone</div><div class="ct-val">+1 (307) 555-0192</div></div></div>
+      <div class="ct-det"><span class="ct-icon">📍</span><div><div class="ct-lbl">Address</div><div class="ct-val">VEKORA HOME LLC<br>30 N Gould St, Ste R<br>Sheridan, WY 82801</div></div></div>
+    </div>
+    <div class="ct-r">
+      <h3>Send Us a Message</h3>
+      <div class="cf-grp"><label class="cf-lbl">Full Name</label><input type="text" placeholder="Jane Smith"></div>
+      <div class="cf-grp"><label class="cf-lbl">Email</label><input type="email" placeholder="jane@example.com"></div>
+      <div class="cf-grp"><label class="cf-lbl">Subject</label><input type="text" placeholder="Order inquiry..."></div>
+      <div class="cf-grp"><label class="cf-lbl">Message</label><textarea placeholder="How can we help you?"></textarea></div>
+      <button class="btn-primary" style="border:none;width:100%;margin-top:4px;" onclick="toast('Message sent! We\'ll reply within 24h ✉️')">Send Message</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== POLICIES ===== -->
+<div id="p-policies" class="page">
+  <div class="pol">
+    <h1>Privacy Policy</h1><p class="pol-date">Last Updated: January 15, 2025</p>
+    <p>VEKORA HOME LLC is committed to protecting your personal information.</p>
+    <h2>1. Information We Collect</h2><p>Name, email, shipping/billing address, phone, and payment data. Also IP address and browsing data via cookies.</p>
+    <h2>2. How We Use Your Information</h2><p>To process orders, send shipping updates, respond to support, and comply with legal obligations.</p>
+    <h2>3. California Residents (CCPA)</h2><p>We do not sell personal information. Submit requests to <strong>privacy@vekorahome.com</strong>.</p>
+    <h2>4. Contact</h2><p><strong>VEKORA HOME LLC</strong> · 30 N Gould St, Ste R · Sheridan, WY 82801 · privacy@vekorahome.com</p>
+    <hr>
+    <h1>Terms of Service</h1><p class="pol-date">Last Updated: January 15, 2025</p>
+    <h2>1. Orders & Payment</h2><p>Orders confirmed upon successful payment. Prices in USD. Processed securely via Stripe.</p>
+    <h2>2. Shipping</h2><p>Continental US only. Estimated 3–5 business days. Free shipping on orders over $75.</p>
+    <h2>3. Returns & Refunds</h2><p>30-day return policy. Email <strong>returns@vekorahome.com</strong>. Refunds within 5–7 business days.</p>
+    <h2>4. Governing Law</h2><p>Governed by the laws of Wyoming, USA.</p>
+  </div>
+</div>
+
+<!-- ===== CHECKOUT ===== -->
+<div id="p-checkout" class="page">
+  <div class="ck">
+    <div class="ck-grid">
+      <div>
+        <h2>Checkout</h2>
+        <div class="fs"><h4>Contact</h4><div class="fg"><label>Email</label><input type="email" placeholder="jane@example.com"></div></div>
+        <div class="fs"><h4>Shipping Address</h4>
+          <div class="fr"><div class="fg"><label>First Name</label><input type="text" placeholder="Jane"></div><div class="fg"><label>Last Name</label><input type="text" placeholder="Smith"></div></div>
+          <div class="fg"><label>Address</label><input type="text" placeholder="123 Main Street"></div>
+          <div class="fr"><div class="fg"><label>City</label><input type="text" placeholder="New York"></div><div class="fg"><label>ZIP</label><input type="text" placeholder="10001"></div></div>
+        </div>
+        <div class="fs"><h4>Payment</h4>
+          <div class="fg"><label>Card Number</label><input type="text" placeholder="4242 4242 4242 4242"></div>
+          <div class="fr"><div class="fg"><label>Expiry</label><input type="text" placeholder="MM/YY"></div><div class="fg"><label>CVV</label><input type="text" placeholder="123"></div></div>
+        </div>
+        <p style="font-size:11px;color:var(--stone);margin-bottom:16px;">🔒 Secured with 256-bit SSL encryption</p>
+        <button class="btn-order" onclick="placeOrder()">Place Order</button>
+      </div>
+      <div class="os">
+        <h3>Order Summary</h3>
+        <div id="ckItems"></div>
+        <div class="ot">
+          <div class="ot-row"><span>Subtotal</span><span id="ckSub">$0.00</span></div>
+          <div class="ot-row"><span>Shipping</span><span id="ckShip">Free</span></div>
+          <div class="ot-row"><span>Tax (est.)</span><span id="ckTax">$0.00</span></div>
+          <div class="ot-total"><span>Total</span><span id="ckTotal">$0.00</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fg-grid">
+    <div>
+      <button class="f-logo" onclick="go('home')">VEKORA <span>HOME</span></button>
+      <p class="f-about">Premium curated home objects for the modern American home. Quality, beauty, and intention in every piece.</p>
+      <div class="f-soc"><div class="f-s">𝕏</div><div class="f-s">in</div><div class="f-s">ig</div><div class="f-s">📌</div></div>
+    </div>
+    <div class="f-col"><h4>Shop</h4><ul class="f-links"><li><button onclick="go('shop')">All Products</button></li><li><button onclick="catShop('Living Room')">Living Room</button></li><li><button onclick="catShop('Kitchen')">Kitchen</button></li><li><button onclick="catShop('Bedroom')">Bedroom</button></li><li><button onclick="catShop('Décor')">Décor</button></li></ul></div>
+    <div class="f-col"><h4>Company</h4><ul class="f-links"><li><button onclick="go('about')">About Us</button></li><li><button onclick="go('contact')">Contact</button></li><li><button onclick="go('policies')">Policies</button></li></ul></div>
+    <div class="f-col"><h4>Support</h4><ul class="f-links"><li><button>Shipping Info</button></li><li><button>Returns</button></li><li><button>Order Tracking</button></li><li><button onclick="go('contact')">Contact Us</button></li></ul></div>
+  </div>
+  <div class="f-bot">
+    <p class="f-copy">© 2025 VEKORA HOME LLC · 30 N Gould St, Ste R, Sheridan, WY 82801, USA</p>
+    <div class="f-leg"><button onclick="go('policies')">Privacy</button><button onclick="go('policies')">Terms</button></div>
+  </div>
+</footer>
+
+<script>
+// ===== PRODUCTS =====
+// Images from Pexels — works from local files AND online
+const PRODS=[
+  {id:1,  name:'Matte Concrete Candle Holder Set', cat:'Living Room', price:48,       badge:'hot',  img:'https://images.pexels.com/photos/4207892/pexels-photo-4207892.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop', desc:'Handcrafted concrete candle holders from artisan studios in northern Italy. Bring warmth and texture to any living space.'},
+  {id:2,  name:'Sculptural Ceramic Vase — Ivory',  cat:'Décor',       price:72,orig:95,badge:'sale', img:'https://images.pexels.com/photos/6707628/pexels-photo-6707628.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop', desc:'Hand-thrown ceramic vase with matte ivory glaze. Crafted in Jingdezhen, China — the world capital of porcelain.'},
+  {id:3,  name:'Acacia Wood Serving Board',         cat:'Kitchen',     price:62,       badge:'new',  img:'https://images.pexels.com/photos/6291014/pexels-photo-6291014.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop', desc:'Large format serving board in sustainably sourced acacia wood. Handcrafted by skilled artisans in Guangdong, China.'},
+  {id:4,  name:'Linen Throw Pillow Cover — Sage',   cat:'Bedroom',     price:34,       badge:'',     img:'https://images.pexels.com/photos/6032280/pexels-photo-6032280.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop', desc:'Soft woven linen in muted sage green. European linen, zipper closure, machine washable. Made in Tuscany, Italy.'},
+  {id:5,  name:'Woven Rattan Table Lamp',           cat:'Lighting',    price:118,      badge:'hot',  img:'https://images.pexels.com/photos/1112598/pexels-photo-1112598.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop', desc:'Handwoven rattan lamp shade with warm brass base. Sourced from artisan workshops in Zhejiang, China.'},
+  {id:6,  name:'Textured Terracotta Planter 5"',    cat:'Décor',       price:29,       badge:'new',  img:'https://images.pexels.com/photos/6208086/pexels-photo-6208086.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop', desc:'Hand-textured terracotta planter with drainage hole. Fired in traditional kilns in Impruneta, Italy.'},
+  {id:7,  name:'Stoneware Mug Set of 4',            cat:'Kitchen',     price:56,       badge:'',     img:'https://images.pexels.com/photos/6102601/pexels-photo-6102601.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop', desc:'Reactive glaze stoneware mugs with natural earthy finish. Produced in premium ceramic factories in Dehua, China.'},
+  {id:8,  name:'Arch Standing Mirror — Brass',      cat:'Décor',       price:149,orig:185,badge:'sale',img:'https://images.pexels.com/photos/1648768/pexels-photo-1648768.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop', desc:'Full-length arched mirror with slim brushed brass frame. Designed and manufactured in Milan, Italy.'},
+  {id:9,  name:'Glass Storage Jar Set — 3 Pieces',  cat:'Kitchen',     price:44,       badge:'',     img:'https://images.pexels.com/photos/4397899/pexels-photo-4397899.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop', desc:'Airtight borosilicate glass jars with bamboo lids. Perfect for pantry organization. From Xuzhou, China.'},
+  {id:10, name:'Bamboo Bath Tray — Expandable',     cat:'Bathroom',    price:52,       badge:'new',  img:'https://images.pexels.com/photos/3771110/pexels-photo-3771110.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop', desc:'Expandable bamboo tray with book slot and soap dish. Eco-certified bamboo from Sichuan, China.'},
+  {id:11, name:'Minimalist Wall Art Print 18×24',   cat:'Décor',       price:38,       badge:'',     img:'https://images.pexels.com/photos/1568607/pexels-photo-1568607.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop', desc:'High-quality archival print on heavyweight matte paper. Artwork by Italian contemporary artists.'},
+  {id:12, name:'Woven Seagrass Storage Basket',     cat:'Living Room', price:67,       badge:'hot',  img:'https://images.pexels.com/photos/6489107/pexels-photo-6489107.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop', desc:'Large handwoven seagrass basket with leather handles. Traditional weaving from Fujian, China.'},
+];
+
+// ===== STATE =====
+let cart=[], curP=null, mQty=1;
+
+// ===== BADGE HTML =====
+function bdg(b){
+  if(!b)return'';
+  return`<span class="pbadge b-${b}">${b==='hot'?'🔥 Hot':b==='sale'?'Sale':'New'}</span>`;
+}
+
+// ===== RENDER PRODUCTS =====
+function renderGrid(id, list){
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.innerHTML=list.map(p=>`
+    <div class="pcard">
+      <div class="pimg">
+        <img src="${p.img}" alt="${p.name}" loading="lazy"
+          onerror="this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#EDE7DC,#DDD5C8)\'><div style=\'font-size:36px;margin-bottom:10px\'>🏠</div><div style=\'font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#8C8A86;text-align:center;padding:0 10px\'>${p.cat}</div></div>'+\`${bdg(p.badge)}\`+'<button class=\\"pwish\\" onclick=\\"event.stopPropagation();toast(\'Added to wishlist ♡\')\\">♡</button><div class=\\"pactions\\"><button class=\\"pa-btn\\" onclick=\\"openMod(${p.id})\\">Quick View</button><button class=\\"pa-btn main\\" onclick=\\"addCart(${p.id})\\">Add to Cart</button></div>';"
+        >
+        ${bdg(p.badge)}
+        <button class="pwish" onclick="event.stopPropagation();toast('Added to wishlist ♡')">♡</button>
+        <div class="pactions">
+          <button class="pa-btn" onclick="openMod(${p.id})">Quick View</button>
+          <button class="pa-btn main" onclick="addCart(${p.id})">Add to Cart</button>
+        </div>
+      </div>
+      <div class="pinfo" onclick="openMod(${p.id})">
+        <p class="p-cat">${p.cat}</p>
+        <h3 class="p-name">${p.name}</h3>
+        <div class="p-bot">
+          <span class="p-price">${p.orig?`<span class="p-orig">$${p.orig}.00</span> `:''} $${p.price}.00</span>
+          <span class="p-stars">★★★★★ <span class="p-rev">(${80+p.id*13})</span></span>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// ===== FILTER =====
+function filterP(cat, btn){
+  document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('on'));
+  if(btn)btn.classList.add('on');
+  renderGrid('shopGrid', cat==='All'?PRODS:PRODS.filter(p=>p.cat===cat));
+}
+
+function catShop(cat){
+  go('shop');
+  setTimeout(()=>{
+    document.querySelectorAll('.f-btn').forEach(b=>b.classList.toggle('on', b.textContent.trim()===cat));
+    renderGrid('shopGrid', PRODS.filter(p=>p.cat===cat));
+  }, 50);
+}
+
+// ===== MODAL =====
+function openMod(id){
+  const p=PRODS.find(x=>x.id===id); if(!p)return;
+  curP=p; mQty=1;
+  document.getElementById('mImg').src=p.img;
+  document.getElementById('mCat').textContent=p.cat;
+  document.getElementById('mName').textContent=p.name;
+  document.getElementById('mPrice').innerHTML=p.orig?`<span class="m-orig">$${p.orig}.00</span> $${p.price}.00`:`$${p.price}.00`;
+  document.getElementById('mDesc').textContent=p.desc;
+  document.getElementById('mQty').textContent=1;
+  document.getElementById('modalOv').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closeMod(){
+  document.getElementById('modalOv').classList.remove('on');
+  document.body.style.overflow='';
+}
+function chMQty(d){mQty=Math.max(1,mQty+d);document.getElementById('mQty').textContent=mQty;}
+function addFromMod(){
+  if(!curP)return;
+  for(let i=0;i<mQty;i++)addCart(curP.id,true);
+  toast(curP.name.split(' ').slice(0,3).join(' ')+'... added ✓');
+  closeMod();
+}
+
+// ===== CART =====
+function addCart(id, silent){
+  const p=PRODS.find(x=>x.id===id); if(!p)return;
+  const ex=cart.find(c=>c.id===id);
+  if(ex)ex.qty++; else cart.push({...p,qty:1});
+  updCart();
+  if(!silent)toast('Added to cart 🛒');
+}
+function remCart(id){cart=cart.filter(c=>c.id!==id);updCart();}
+function chQty(id,d){const i=cart.find(c=>c.id===id);if(i)i.qty=Math.max(1,i.qty+d);updCart();}
+
+function updCart(){
+  const tot=cart.reduce((s,c)=>s+c.price*c.qty,0);
+  const cnt=cart.reduce((s,c)=>s+c.qty,0);
+  const badge=document.getElementById('cBadge');
+  badge.textContent=cnt; badge.style.display=cnt?'flex':'none';
+
+  if(!cart.length){
+    document.getElementById('cFoot').style.display='none';
+    document.getElementById('cItems').innerHTML='<div class="c-empty">Your cart is empty 🛒</div>';
+  } else {
+    document.getElementById('cFoot').style.display='block';
+    document.getElementById('cTotal').textContent=`$${tot.toFixed(2)}`;
+    document.getElementById('cItems').innerHTML=cart.map(c=>`
+      <div class="c-item">
+        <div class="c-thumb"><img src="${c.img}" onerror="this.style.display='none'"></div>
+        <div>
+          <div class="c-name">${c.name}</div>
+          <div class="c-pr">$${c.price}.00</div>
+          <div class="c-qty">
+            <button class="q-btn" onclick="chQty(${c.id},-1)">−</button>
+            <span class="q-n">${c.qty}</span>
+            <button class="q-btn" onclick="chQty(${c.id},1)">+</button>
+          </div>
+        </div>
+        <button class="c-rm" onclick="remCart(${c.id})">✕</button>
+      </div>`).join('');
+  }
+  // checkout summary
+  const tax=tot*.08, ship=tot>=75?'Free':'$9.99', ttl=tot+tax+(tot>=75?0:9.99);
+  document.getElementById('ckSub').textContent=`$${tot.toFixed(2)}`;
+  document.getElementById('ckShip').textContent=ship;
+  document.getElementById('ckTax').textContent=`$${tax.toFixed(2)}`;
+  document.getElementById('ckTotal').textContent=`$${ttl.toFixed(2)}`;
+  document.getElementById('ckItems').innerHTML=cart.map(c=>`
+    <div class="oi">
+      <div class="oi-img"><img src="${c.img}" onerror="this.style.display='none'"></div>
+      <div><div class="oi-name">${c.name}</div><div class="oi-qty">Qty: ${c.qty}</div></div>
+      <div class="oi-pr">$${(c.price*c.qty).toFixed(2)}</div>
+    </div>`).join('');
+}
+
+function toggleCart(){
+  const s=document.getElementById('cSide'), sh=document.getElementById('cShade');
+  const open=s.classList.contains('on');
+  s.classList.toggle('on'); sh.classList.toggle('on');
+  document.body.style.overflow=open?'':'hidden';
+}
+function goCheckout(){toggleCart();setTimeout(()=>go('checkout'),300);}
+
+// ===== PAGES =====
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('p-'+id).classList.add('active');
+  ['home','shop','about','contact','policies'].forEach(n=>{
+    const el=document.getElementById('n'+n[0]);
+    if(el)el.classList.toggle('active',n===id);
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(id==='shop')renderGrid('shopGrid',PRODS);
+  if(id==='home')renderGrid('homeGrid',PRODS.slice(0,8));
+}
+
+// ===== MISC =====
+function placeOrder(){cart=[];updCart();toast('Order placed! Thank you 🎉');setTimeout(()=>go('home'),1500);}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),3000);}
+function closePop(){document.getElementById('popShade').classList.remove('on');}
+
+// ===== INIT =====
+window.onload=function(){
+  renderGrid('homeGrid',PRODS.slice(0,8));
+  renderGrid('shopGrid',PRODS);
+  setTimeout(()=>document.getElementById('popShade').classList.add('on'),3000);
+};
+</script>
+</body>
+</html>
